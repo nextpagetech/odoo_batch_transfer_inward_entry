@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_picking_form_extra_products" model="ir.ui.view">
+        <field name="name">stock.picking.form.extra.products</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="extra_validation_blocked" invisible="1"/>
+                <field name="pending_extra_product_count" invisible="1"/>
+                <field name="rejected_extra_product_count" invisible="1"/>
+                <field name="extra_has_purchase_reference" invisible="1"/>
+                <field name="extra_purchase_order_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//header/button[hasclass('oe_highlight') and @name='button_validate']" position="attributes">
+                <attribute name="invisible">state in ('draft', 'confirmed', 'done', 'cancel') or extra_validation_blocked</attribute>
+            </xpath>
+            <xpath expr="//header/button[hasclass('o_btn_validate') and @name='button_validate']" position="attributes">
+                <attribute name="invisible">state in ('waiting', 'assigned', 'done', 'cancel') or extra_validation_blocked</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_open_add_extra_move_wizard"
+                        string="Add Extra Product"
+                        type="object"
+                        class="btn-secondary"
+                        icon="fa-plus"
+                        invisible="state in ('done', 'cancel') or not (extra_has_purchase_reference and picking_type_code in ('incoming', 'internal'))"/>
+            </xpath>
+            <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="after">
+                <div class="alert alert-warning mt-3" role="status" invisible="not extra_validation_blocked">
+                    <p>
+                        <span>Pending extra products require purchase manager approval before this receipt can be validated.</span>
+                        <br/>
+                        <span invisible="pending_extra_product_count == 0">
+                            <strong>Pending:</strong>
+                            <field name="pending_extra_product_count" class="oe_inline"/>
+                        </span>
+                        <span invisible="rejected_extra_product_count == 0" class="ms-3">
+                            <strong>Rejected:</strong>
+                            <field name="rejected_extra_product_count" class="oe_inline"/>
+                        </span>
+                    </p>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/list/field[@name='product_uom_qty']" position="after">
+                <field name="available_target_purchase_order_ids" column_invisible="True"/>
+                <field name="target_purchase_order_id"
+                       groups="purchase.group_purchase_user"
+                       readonly="extra_product_state != 'pending'"
+                       domain="[('id', 'in', available_target_purchase_order_ids)]"
+                       column_invisible="not parent.extra_has_purchase_reference"
+                       options="{'no_open': True, 'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']/list/field[@name='quantity']" position="after">
+                <field name="extra_product_state"
+                       widget="badge"
+                       decoration-warning="extra_product_state == 'pending'"
+                       decoration-success="extra_product_state == 'approved'"
+                       decoration-danger="extra_product_state == 'rejected'"
+                       column_invisible="not parent.extra_has_purchase_reference"/>
+                <field name="extra_product_requested_on" optional="hide" column_invisible="not parent.extra_has_purchase_reference"/>
+                <field name="extra_product_requested_by_id" optional="hide" column_invisible="not parent.extra_has_purchase_reference"/>
+                <button name="action_approve_extra_product"
+                        string="Approve"
+                        type="object"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"
+                        column_invisible="not parent.extra_has_purchase_reference"/>
+                <button name="action_reject_extra_product"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"
+                        column_invisible="not parent.extra_has_purchase_reference"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_tree_add_batch_button" model="ir.ui.view">
+        <field name="name">stock.picking.list.add.batch.button</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/header/button[@name='action_assign']" position="after">
+                <button string="Add to Batch"
+                        type="action"
+                        name="%(stock_picking_batch.stock_picking_to_batch_action_stock_picking)d"
+                        class="btn-secondary"
+                        groups="stock.group_stock_user"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="stock_picking_tree_open_batch_or_self" model="ir.ui.view">
+        <field name="name">stock.picking.list.open.batch.or.self</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="action">action_open_batch_or_self</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_picking_tree_group_contact" model="ir.ui.view">
+        <field name="name">stock.picking.tree.group.contact</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='status']" position="after">
+                <filter string="Contact"
+                        name="group_partner"
+                        domain="[]"
+                        context="{'group_by': 'partner_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

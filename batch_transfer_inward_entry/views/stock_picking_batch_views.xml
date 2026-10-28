@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_batch_product_summary_tree" model="ir.ui.view">
+        <field name="name">stock.picking.batch.product.summary.tree</field>
+        <field name="model">stock.picking.batch.product.summary</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="product_id" readonly="1"/>
+                <field name="demand_qty" readonly="1"/>
+                <field name="product_uom_id" readonly="1"/>
+                <field name="arrived_qty"/>
+                <field name="target_purchase_order_display" readonly="1" optional="show"/>
+                <field name="extra_product_state"
+                       widget="badge"
+                       decoration-warning="extra_product_state == 'pending'"
+                       decoration-success="extra_product_state == 'approved'"
+                       decoration-danger="extra_product_state == 'rejected'"
+                       optional="show"/>
+                <field name="extra_product_requested_on" readonly="1" optional="hide"/>
+                <field name="extra_product_requested_by_id" readonly="1" optional="hide"/>
+                <button name="action_summary_approve_extra_product"
+                        type="object"
+                        string="Approve"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="not extra_has_pending"/>
+                <button name="action_summary_reject_extra_product"
+                        type="object"
+                        string="Reject"
+                        class="btn-secondary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="not extra_has_pending"/>
+                <button name="action_open_detail_operations"
+                        type="object"
+                        string="Detail Operations"
+                        class="btn-link"
+                        icon="fa-external-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_form_extra_products" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form.extra.products</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="extra_validation_blocked" invisible="1"/>
+                <field name="pending_extra_product_count" invisible="1"/>
+                <field name="rejected_extra_product_count" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_open_add_extra_move_wizard"
+                        type="object"
+                        class="btn-secondary"
+                        string="Add Extra Product"
+                        invisible="state != 'in_progress'"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids']" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='page_detailed_operations']" position="before">
+                <page name="page_batch_products" string="Products">
+                    <field name="product_summary_ids"
+                           nolabel="1"
+                           context="{'tree_view_ref': 'batch_transfer_inward_entry.view_batch_product_summary_tree', 'default_batch_id': id}"
+                           create="0"
+                           delete="0"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_move_line_tree_extra_products" model="ir.ui.view">
+        <field name="name">stock.move.line.extra.products</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="quant_id"
+                       string="Stock Details"
+                       domain="[('product_id', '=', product_id), ('location_id', 'child_of', location_id)]"
+                       context="{'default_location_id': location_id, 'default_product_id': product_id, 'search_view_ref': 'stock.quant_search_view', 'list_view_ref': 'stock.view_stock_quant_tree_simple', 'form_view_ref': 'stock.view_stock_quant_form', 'readonly_form': False}"
+                       widget="pick_from"
+                       options="{'no_open': True}"
+                       column_invisible="parent.picking_type_code == 'incoming'"/>
+            </xpath>
+            <xpath expr="//field[@name='quantity']" position="after">
+                <field name="target_purchase_order_id"
+                       groups="purchase.group_purchase_user"
+                       readonly="extra_product_state != 'pending'"
+                       options="{'no_open': True, 'no_create_edit': True}"/>
+                <field name="extra_product_state"
+                       widget="badge"
+                       decoration-warning="extra_product_state == 'pending'"
+                       decoration-success="extra_product_state == 'approved'"
+                       decoration-danger="extra_product_state == 'rejected'"/>
+                <field name="extra_product_requested_on" optional="hide"/>
+                <field name="extra_product_requested_by_id" optional="hide"/>
+                <button name="action_move_line_approve"
+                        string="Approve"
+                        type="object"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+                <button name="action_move_line_reject"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

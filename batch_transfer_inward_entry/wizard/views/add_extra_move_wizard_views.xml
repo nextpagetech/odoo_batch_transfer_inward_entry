@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_add_extra_move_wizard" model="ir.ui.view">
+    <field name="name">add.extra.move.wizard.form</field>
+    <field name="model">add.extra.move.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Add Extra Product">
+        <group>
+          <field name="batch_id" readonly="1"/>
+          <field name="available_po_ids" invisible="1"/>
+          <field name="company_id" invisible="1"/>
+          <field name="currency_id" invisible="1"/>
+          <field name="date_order" invisible="1"/>
+        </group>
+        <group>
+          <field name="target_purchase_order_id" placeholder="select a PO" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+        </group>
+        <group>
+          <field name="picking_id"/>
+        </group>
+        <group>
+          <field name="product_id"
+                 widget="pol_product_many2one"
+                 context="{'partner_id': picking_id.partner_id, 'quantity': product_qty, 'company_id': company_id, 'enable_purchase_attribute_filter': True}"
+                 options="{'no_create': True, 'no_create_edit': True}"
+                 placeholder="Type to find a product..."/>
+          <field name="product_template_id" invisible="1"/>
+          <field name="product_no_variant_attribute_value_ids" invisible="1"/>
+          <field name="product_custom_attribute_value_ids" invisible="1"/>
+          <field name="product_uom" readonly="1" options="{'no_open': True}"/>
+          <field name="product_qty"/>
+        </group>
+        <group>
+          <field name="note" placeholder="Reason / supplier confirmation"/>
+        </group>
+        <footer>
+          <button name="action_add" type="object" class="btn-primary" string="Add"/>
+          <button special="cancel" class="btn-secondary" string="Cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_add_extra_move_wizard" model="ir.actions.act_window">
+    <field name="name">Add Extra Product</field>
+    <field name="res_model">add.extra.move.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="context">{'default_batch_id': active_id}</field>
+  </record>
+</odoo>

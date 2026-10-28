@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_move_operations_update_button_bti" model="ir.ui.view">
+        <field name="name">stock.move.operations.form.update.button.bti</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <footer>
+                <button name="action_update_detail_operations"
+                        type="object"
+                        string="Update"
+                        class="btn-secondary"
+                        invisible="state in ('done', 'cancel')"/>
+                    <button string="Save" special="save" class="btn-primary"/>
+                    <button string="Discard" special="cancel" class="btn-secondary"/>
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_move_tree_batch_extra_products" model="ir.ui.view">
+        <field name="name">stock.move.tree.batch.extra.products</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock_picking_batch.view_picking_move_tree_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_id']" position="after">
+                <field name="available_target_purchase_order_ids" column_invisible="True"/>
+                <field name="target_purchase_order_id"
+                       groups="purchase.group_purchase_user"
+                       readonly="extra_product_state != 'pending'"
+                       options="{'no_open': True, 'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='picking_id']" position="attributes">
+                <attribute name="domain">[('id','in', parent.picking_ids.ids)]</attribute>
+                <attribute name="readonly">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='quantity']" position="after">
+                <field name="extra_product_state"
+                       widget="badge"
+                       decoration-warning="extra_product_state == 'pending'"
+                       decoration-success="extra_product_state == 'approved'"
+                       decoration-danger="extra_product_state == 'rejected'"/>
+                <field name="extra_product_requested_on" optional="hide"/>
+                <field name="extra_product_requested_by_id" optional="hide"/>
+                <button name="action_approve_extra_product"
+                        string="Approve"
+                        type="object"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+                <button name="action_reject_extra_product"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

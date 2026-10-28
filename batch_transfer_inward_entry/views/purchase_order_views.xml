@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_purchase_order_batch_extra_move_tree" model="ir.ui.view">
+        <field name="name">stock.move.tree.batch.extra.purchase</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0">
+                <field name="picking_id"/>
+                <field name="product_id"/>
+                <field name="product_uom_qty" string="Demand Qty"/>
+                <field name="quantity"/>
+                <field name="product_uom"/>
+                <field name="extra_product_state"
+                       widget="badge"
+                       decoration-warning="extra_product_state == 'pending'"
+                       decoration-success="extra_product_state == 'approved'"
+                       decoration-danger="extra_product_state == 'rejected'"/>
+                <field name="extra_product_requested_by_id" optional="hide"/>
+                <field name="extra_product_requested_on" optional="hide"/>
+                <button name="action_approve_extra_product"
+                        string="Approve"
+                        type="object"
+                        class="btn-primary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+                <button name="action_reject_extra_product"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        groups="purchase.group_purchase_manager"
+                        invisible="extra_product_state != 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_batch_extra_products" model="ir.ui.view">
+        <field name="name">purchase.order.form.batch.extra.products</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@name='products']/field[@name='order_line']" position="after">
+                <field name="batch_pending_extra_move_count" invisible="1"/>
+                <div class="o_row" invisible="batch_pending_extra_move_count == 0">
+                    <field name="batch_extra_move_ids_pending"
+                           string="Pending Batch Extras"
+                           widget="many2many"
+                           mode="list"
+                           readonly="1"
+                           context="{'list_view_ref': 'batch_transfer_inward_entry.view_purchase_order_batch_extra_move_tree'}"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree_batch_warning" model="ir.ui.view">
+        <field name="name">purchase.order.tree.batch.warning</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <list position="attributes">
+                <attribute name="decoration-danger">batch_pending_extra_move_count &gt; 0</attribute>
+            </list>
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="batch_pending_extra_move_count" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="batch_pending_extra_move_count"
+                       widget="badge"
+                       optional="hide"
+                       decoration-warning="batch_pending_extra_move_count &gt; 0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree_extra_product_activity" model="ir.ui.view">
+        <field name="name">purchase.order.tree.extra.product.activity</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_ids']" position="replace">
+                <field name="batch_extra_product_activity_state"
+                       string="Activities"
+                       widget="badge"
+                       optional="show"
+                       decoration-warning="batch_extra_product_activity_state == 'pending'"
+                       decoration-success="batch_extra_product_activity_state == 'approved'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_kpis_tree_extra_product_activity" model="ir.ui.view">
+        <field name="name">purchase.order.kpis.tree.extra.product.activity</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_ids']" position="replace">
+                <field name="batch_extra_product_activity_state"
+                       string="Activities"
+                       widget="badge"
+                       optional="show"
+                       decoration-warning="batch_extra_product_activity_state == 'pending'"
+                       decoration-success="batch_extra_product_activity_state == 'approved'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
