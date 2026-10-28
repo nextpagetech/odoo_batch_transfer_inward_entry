@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#f8fbff"/>
+<path d="M0 0h1200v90H0z" fill="#073b78"/>
+<text x="60" y="58" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#fff">Approve Extra Products</text>
+<text x="895" y="54" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#fff">next</text>
+<text x="895" y="76" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#cce6ff">PAGE TECHNOLOGIES</text>
+<text x="60" y="135" font-family="Arial,sans-serif" font-size="24" fill="#36506d">Control unexpected products on PO-linked receipts and batch transfers.</text>
+
+<g transform="translate(55 190)">
+ <rect width="320" height="390" rx="24" fill="#fff" stroke="#cfe2f5" stroke-width="3"/>
+ <circle cx="52" cy="58" r="32" fill="#0875d1"/><text x="42" y="70" font-family="Arial" font-size="30" font-weight="700" fill="#fff">1</text>
+ <text x="100" y="62" font-family="Arial" font-size="25" font-weight="700" fill="#0b326b">Detect Extra Products</text>
+ <text x="35" y="112" font-family="Arial" font-size="19" fill="#536b83">Products not linked to the PO</text>
+ <text x="35" y="140" font-family="Arial" font-size="19" fill="#536b83">are identified during inward entry.</text>
+ <rect x="35" y="185" width="250" height="125" rx="14" fill="#f5f9fd" stroke="#d7e6f4"/>
+ <text x="55" y="220" font-family="Arial" font-size="18" font-weight="700" fill="#0b326b">Receipt Lines</text>
+ <text x="55" y="258" font-family="Arial" font-size="17" fill="#536b83">Ordered</text><text x="170" y="258" font-family="Arial" font-size="17" fill="#536b83">Received</text>
+ <text x="55" y="292" font-family="Arial" font-size="18" fill="#0b326b">10</text><text x="185" y="292" font-family="Arial" font-size="18" fill="#d97706">12  •  Extra</text>
+</g>
+
+<g transform="translate(440 190)">
+ <rect width="320" height="390" rx="24" fill="#fff" stroke="#cfe2f5" stroke-width="3"/>
+ <circle cx="52" cy="58" r="32" fill="#0875d1"/><text x="42" y="70" font-family="Arial" font-size="30" font-weight="700" fill="#fff">2</text>
+ <text x="100" y="52" font-family="Arial" font-size="24" font-weight="700" fill="#0b326b">Purchase Manager</text>
+ <text x="100" y="82" font-family="Arial" font-size="24" font-weight="700" fill="#0b326b">Approval / Rejection</text>
+ <text x="35" y="135" font-family="Arial" font-size="19" fill="#536b83">Purchase Manager reviews the</text>
+ <text x="35" y="163" font-family="Arial" font-size="19" fill="#536b83">extra item before validation.</text>
+ <rect x="35" y="220" width="115" height="58" rx="12" fill="#178f55"/><text x="60" y="257" font-family="Arial" font-size="20" font-weight="700" fill="#fff">Approve</text>
+ <rect x="170" y="220" width="115" height="58" rx="12" fill="#d94b45"/><text x="203" y="257" font-family="Arial" font-size="20" font-weight="700" fill="#fff">Reject</text>
+</g>
+
+<g transform="translate(825 190)">
+ <rect width="320" height="390" rx="24" fill="#fff" stroke="#cfe2f5" stroke-width="3"/>
+ <circle cx="52" cy="58" r="32" fill="#0875d1"/><text x="42" y="70" font-family="Arial" font-size="30" font-weight="700" fill="#fff">3</text>
+ <text x="100" y="62" font-family="Arial" font-size="25" font-weight="700" fill="#0b326b">Block Validation</text>
+ <text x="35" y="112" font-family="Arial" font-size="19" fill="#536b83">The receipt or batch remains</text>
+ <text x="35" y="140" font-family="Arial" font-size="19" fill="#536b83">blocked while approval is pending.</text>
+ <rect x="35" y="190" width="250" height="105" rx="14" fill="#fff1f0" stroke="#f4c7c4"/>
+ <text x="60" y="230" font-family="Arial" font-size="21" font-weight="700" fill="#b42318">Validation Blocked</text>
+ <text x="60" y="260" font-family="Arial" font-size="17" fill="#7a4540">Resolve extra products first.</text>
+ <rect x="35" y="320" width="250" height="50" rx="12" fill="#d9e2ec"/><text x="112" y="352" font-family="Arial" font-size="19" font-weight="700" fill="#8292a5">Validate</text>
+</g>
+</svg>
