@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#f8fbff"/>
+<path d="M0 0h390v675H0z" fill="#073b78"/>
+<path d="M0 500c115-75 210-25 390-130v305H0z" fill="#0875d1"/>
+<text x="65" y="95" font-family="Arial,sans-serif" font-size="64" font-weight="700" fill="#fff">next</text>
+<text x="68" y="130" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#b8dcff">PAGE TECHNOLOGIES</text>
+<text x="65" y="240" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#fff">Talk to Our Team</text>
+<rect x="65" y="265" width="95" height="7" rx="3" fill="#3ca3ff"/>
+<text x="65" y="335" font-family="Arial,sans-serif" font-size="25" fill="#fff">Enterprise-minded.</text>
+<text x="65" y="375" font-family="Arial,sans-serif" font-size="25" fill="#fff">Process-focused.</text>
+<text x="65" y="415" font-family="Arial,sans-serif" font-size="25" fill="#fff">Long-term support.</text>
+
+<g transform="translate(440 70)">
+ <rect width="700" height="535" rx="30" fill="#fff" stroke="#cfe2f5" stroke-width="3"/>
+ <text x="55" y="70" font-family="Arial" font-size="20" fill="#6c7f93">Call / WhatsApp</text>
+ <text x="55" y="112" font-family="Arial" font-size="29" font-weight="700" fill="#0b326b">+91 8187030758</text>
+ <line x1="55" y1="142" x2="645" y2="142" stroke="#d6e4f2" stroke-width="2"/>
+ <text x="55" y="190" font-family="Arial" font-size="20" fill="#6c7f93">Email</text>
+ <text x="55" y="232" font-family="Arial" font-size="27" font-weight="700" fill="#0b326b">hello@nextpagetechnologies.com</text>
+ <line x1="55" y1="262" x2="645" y2="262" stroke="#d6e4f2" stroke-width="2"/>
+ <text x="55" y="310" font-family="Arial" font-size="20" fill="#6c7f93">Alternate Email</text>
+ <text x="55" y="352" font-family="Arial" font-size="27" font-weight="700" fill="#0b326b">prasad@nextpagetechnologies.com</text>
+ <line x1="55" y1="382" x2="645" y2="382" stroke="#d6e4f2" stroke-width="2"/>
+ <text x="55" y="430" font-family="Arial" font-size="20" fill="#6c7f93">Website</text>
+ <text x="55" y="472" font-family="Arial" font-size="27" font-weight="700" fill="#0b326b">www.nextpagetechnologies.com</text>
+</g>
+</svg>
