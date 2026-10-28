@@ -1,16 +1,9 @@
 {
     "name": "Batch Transfer Inward Entry",
-    "summary": "Approve extra products on PO-linked receipts and batch transfers before validation",
-    "description": """
-Adds an approval workflow for extra products received on purchase-linked receipts,
-internal transfers, and batch transfers. Extra products are held for Purchase
-Manager review, approved lines can be added to the target purchase order, and
-validation is blocked until pending or rejected extra products are resolved.
-""",
-    "version": "18.0.1.0.0",
+    "summary": "Approval workflow for extra products on vendor batch transfers",
+    "version": "1.0.0",
     "category": "Inventory",
-    "author": "Next Page Technologies Pvt Ltd",
-    "website": "https://nextpagetechnologies.com",
+    "author": "Your Company",
     "license": "LGPL-3",
     "depends": [
         "stock_picking_batch",
@@ -40,5 +33,4 @@ validation is blocked until pending or rejected extra products are resolved.
     },
     "installable": True,
     "application": False,
-    "auto_install": False,
 }
