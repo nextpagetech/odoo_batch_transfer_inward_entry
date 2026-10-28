@@ -1,0 +1,36 @@
+.o_sale_product_configurator_dialog {
+    .o_pvatt_attr_grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        column-gap: 1rem;
+        row-gap: 0.75rem;
+    }
+
+    .o_pvatt_attr_cell {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 1400px) {
+    .o_sale_product_configurator_dialog .o_pvatt_attr_grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1200px) {
+    .o_sale_product_configurator_dialog .o_pvatt_attr_grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .o_sale_product_configurator_dialog .o_pvatt_attr_grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .o_sale_product_configurator_dialog .o_pvatt_attr_grid {
+        grid-template-columns: 1fr;
+    }
+}

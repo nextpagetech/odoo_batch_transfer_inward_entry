@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_variant_attribute_searchpanel" model="ir.ui.view">
+        <field name="name">product.product.search.attribute.searchpanel</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <searchpanel class="variant_attribute_panel">
+                    <field name="categ_id" icon="fa-filter" string="Category" select="multi"/>
+                </searchpanel>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_stock_report_attribute_searchpanel" model="ir.ui.view">
+        <field name="name">product.product.search.stock.report.attribute.searchpanel</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_search_form_view_stock_report"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='real_stock_negative']/following-sibling::searchpanel" position="replace"/>
+        </field>
+    </record>
+</odoo>

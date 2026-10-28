@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_quant_searchpanel_attribute" model="ir.ui.view">
+        <field name="name">stock.quant.searchpanel.attribute</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <searchpanel class="variant_attribute_panel">
+                    <field name="product_categ_id" icon="fa-filter" string="Category" select="multi"/>
+                </searchpanel>
+            </xpath>
+        </field>
+    </record>
+</odoo>

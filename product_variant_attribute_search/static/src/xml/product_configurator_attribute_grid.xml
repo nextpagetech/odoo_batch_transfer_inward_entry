@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="sale.Product" t-inherit-mode="extension">
+        <xpath expr="//t[@t-foreach='this.props.attribute_lines']" position="replace">
+            <div class="o_pvatt_attr_grid">
+                <t t-foreach="this.props.attribute_lines" t-as="ptal" t-key="ptal.id">
+                    <div t-if="shouldShowPtal(ptal)" class="o_pvatt_attr_cell">
+                        <PTAL
+                            t-props="ptal"
+                            productTmplId="this.props.product_tmpl_id"
+                        />
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </t>
+</templates>

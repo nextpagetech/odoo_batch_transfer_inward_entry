@@ -1,0 +1,50 @@
+.o_variant_attr_panel {
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 8px;
+}
+
+.o_variant_attr_header {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.o_variant_attr_rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.o_variant_attr_row {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.o_variant_attr_label {
+    flex: 0 0 110px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.o_variant_attr_select {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_variant_attr_select_toggler {
+    min-height: 32px;
+    width: 100%;
+}
+
+.o_variant_attr_select_menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.o_variant_attr_actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin: 8px 0 12px;
+}

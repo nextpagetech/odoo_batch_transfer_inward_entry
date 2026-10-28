@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="web.SelectCreateDialog" t-inherit-mode="extension">
+        <xpath expr="//View" position="before">
+            <t t-if="this.shouldShowAttributeFilter">
+                <div class="o_purchase_attr_filter_toolbar">
+                    <SelectMenu
+                        class="'o_purchase_attr_filter_template'"
+                        menuClass="'o_purchase_attr_filter_template_menu'"
+                        placeholder="attributeFilterLabels.templatePlaceholder"
+                        searchable="true"
+                        searchPlaceholder="''"
+                        value="attrState.templateId"
+                        choices="templateChoices"
+                        onSelect="(value) => this.onTemplateSelected(value)"
+                    />
+                    <button type="button"
+                            class="btn btn-outline-secondary o_purchase_attr_filter_toggle"
+                            t-on-click="toggleAttributePanel">
+                        <i class="fa fa-filter me-1"/>
+                        <t t-esc="attributeFilterLabels.title"/>
+                    </button>
+                    <div class="o_purchase_attr_filter_chips">
+                        <t t-if="attrState.appliedRows.length">
+                            <t t-foreach="attrState.appliedRows" t-as="chip" t-key="chip.attributeId + '-' + chip.values.join(',')">
+                                <span class="badge rounded-pill text-bg-light o_purchase_attr_filter_chip">
+                                    <t t-esc="chip.attributeName"/>:
+                                    <t t-esc="chip.values.join(', ')"/>
+                                </span>
+                            </t>
+                        </t>
+                        <span t-else="" class="text-muted small">
+                            <t t-esc="attributeFilterLabels.noFilters"/>
+                        </span>
+                    </div>
+                </div>
+                <div t-if="attrState.open" class="o_purchase_attr_filter_panel">
+                    <t t-if="attrState.loadingAttributes">
+                        <div class="text-muted">
+                            <i class="fa fa-spinner fa-spin me-1"/>
+                            <t t-esc="attributeFilterLabels.loading"/>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-if="attrState.attributes.length">
+                            <div class="o_purchase_attr_filter_fields">
+                                <t t-foreach="attrState.attributes" t-as="attribute" t-key="attribute.id">
+                                    <div class="o_purchase_attr_filter_field">
+                                        <div class="o_purchase_attr_filter_label" t-esc="attribute.name"/>
+                                        <SelectMenu
+                                            class="'o_purchase_attr_filter_select'"
+                                            menuClass="'o_purchase_attr_filter_menu'"
+                                            placeholder="attributeFilterLabels.valuesPlaceholder"
+                                            searchable="true"
+                                            searchPlaceholder="''"
+                                            multiSelect="true"
+                                            value="this.getSelectedValueIds(attribute.id)"
+                                            choices="this.getValueChoices(attribute.id)"
+                                            onInput="(value) => this.onValueSearch(attribute.id, value)"
+                                            onSelect="(values) => this.onValuesSelected(attribute.id, values)"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="o_purchase_attr_filter_actions">
+                                <button type="button" class="btn btn-secondary" t-on-click="clearAttributeFilters">
+                                    <t t-esc="attributeFilterLabels.clear"/>
+                                </button>
+                                <button type="button" class="btn btn-primary" t-on-click="applyAttributeFilters">
+                                    <t t-esc="attributeFilterLabels.apply"/>
+                                </button>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="text-muted">
+                                <t t-esc="attributeFilterLabels.emptyAttributes"/>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

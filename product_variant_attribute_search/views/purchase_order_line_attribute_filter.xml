@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form_attribute_filter_ctx" model="ir.ui.view">
+        <field name="name">purchase.order.form.attribute.filter.context</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/list//field[@name='product_id']" position="attributes">
+                <attribute name="context">
+                    {'partner_id': parent.partner_id, 'quantity': product_qty, 'company_id': parent.company_id, 'enable_purchase_attribute_filter': True}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

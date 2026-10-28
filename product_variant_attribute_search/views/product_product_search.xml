@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Product Variant search view extension: add attribute filters & keyword search on values -->
+    <record id="pvatt_product_search_view" model="ir.ui.view">
+        <field name="name">product.product.search.attributes.dynamic</field>
+        <field name="model">product.product</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Enhance the attribute keyword search -->
+            <xpath expr="//field[@name='product_template_attribute_value_ids']" position="replace">
+                <field name="product_template_attribute_value_ids"
+                       string="Attributes"
+                       placeholder="Type attribute value (e.g., 150, 20, NS)"
+                       filter_domain="[
+                           '|', '|',
+                           ('product_template_attribute_value_ids.name', 'ilike', self),
+                           ('product_template_attribute_value_ids.display_name', 'ilike', self),
+                           ('product_template_attribute_value_ids.attribute_id.name', 'ilike', self)
+                       ]"
+                       groups="product.group_product_variant"/>
+            </xpath>
+
+            <!-- Add quick filters + JS-triggered dialog under Filters -->
+            <xpath expr="//filter[@name='favorites']" position="after">
+                <separator/>
+                <filter string="Has Attribute Values"
+                        name="has_attribute_values"
+                        domain="[('product_template_attribute_value_ids', '!=', False)]"/>
+                <filter string="Has Variant Values"
+                        name="has_variant_values"
+                        domain="[('product_template_variant_value_ids', '!=', False)]"
+                        groups="product.group_product_variant"/>
+                <filter string="Filter by Attribute Values..."
+                        name="attr_filter_trigger"
+                        domain="[]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Template search view: adds dynamic attribute value filters via searchpanel -->
+    <record id="pvatt_product_template_search_view" model="ir.ui.view">
+        <field name="name">product.template.search.attributes.dynamic</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <!-- Add keyword search on attribute values -->
+            <xpath expr="//search" position="inside">
+                <field name="product_template_attribute_value_ids"
+                       string="Attributes"
+                       placeholder="Type attribute value (e.g., 150, 20, NS)"
+                       filter_domain="[
+                           '|', '|',
+                           ('product_template_attribute_value_ids.name', 'ilike', self),
+                           ('product_template_attribute_value_ids.display_name', 'ilike', self),
+                           ('product_template_attribute_value_ids.attribute_id.name', 'ilike', self)
+                       ]"
+                       groups="product.group_product_variant"/>
+            </xpath>
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <!-- Static quick filter -->
+                <filter string="Has Attribute Values"
+                        name="tmpl_has_attribute_values"
+                        domain="[('product_template_attribute_value_ids', '!=', False)]"
+                        groups="product.group_product_variant"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Point core actions to the new variant search view -->
+    <record id="product.product_normal_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="product_variant_attribute_search.pvatt_product_search_view"/>
+        <field name="context">{'search_default_group_by_product_tmpl_id': 1}</field>
+    </record>
+    <record id="stock.stock_product_normal_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="product_variant_attribute_search.pvatt_product_search_view"/>
+        <field name="context">{'search_default_group_by_product_tmpl_id': 1}</field>
+    </record>
+    <record id="purchase.product_product_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="product_variant_attribute_search.pvatt_product_search_view"/>
+        <field name="context">{'search_default_group_by_product_tmpl_id': 1}</field>
+    </record>
+</odoo>

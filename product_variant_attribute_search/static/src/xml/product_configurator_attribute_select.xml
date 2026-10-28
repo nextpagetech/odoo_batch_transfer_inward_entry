@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="sale.ProductTemplateAttributeLine" t-inherit-mode="extension">
+        <xpath expr="//t[@t-call='{{getPTAVTemplate()}}']" position="replace">
+            <SelectMenu
+                class="'o_pvatt_config_select w-100'"
+                menuClass="'o_pvatt_select_menu'"
+                togglerClass="'o_pvatt_config_toggler'"
+                placeholder="pvattPlaceholder"
+                searchable="true"
+                searchPlaceholder="''"
+                multiSelect="true"
+                value="pvattSelectedIds"
+                choices="pvattChoices"
+                onSelect="(values) => this.pvattOnSelect(values)"
+            />
+        </xpath>
+    </t>
+</templates>

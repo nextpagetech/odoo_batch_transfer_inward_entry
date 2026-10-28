@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase.product_product_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="product.product_search_form_view"/>
+    </record>
+
+    <record id="stock.stock_product_normal_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="stock.stock_product_search_form_view"/>
+    </record>
+</odoo>
