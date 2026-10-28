@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Odoo / runtime
+*.log
+*.pid
+*.dump
+*.sql
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary / backup files
+*.tmp
+*.bak
+*.swp
+*~
