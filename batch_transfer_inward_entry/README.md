@@ -130,8 +130,3 @@ Enforces purchase-manager approval when extra products show up on receipts or in
 - Validation blocked after approval: verify all extra moves show Approved and are linked to a PO line.
 - Cannot approve: user must be in Purchase Manager group and target PO must match the vendor.
 - Lot or serial errors: ensure serial products have quantity 1 and a lot or serial value.
-
-## Publisher
-
-**Next Page Technologies Pvt Ltd**  
-https://nextpagetechnologies.com
